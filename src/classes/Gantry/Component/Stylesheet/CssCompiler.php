@@ -305,7 +305,9 @@ abstract class CssCompiler implements CssCompilerInterface
      */
     public function setVariables(array $variables)
     {
-        $this->variables = array_filter($variables);
+        $this->variables = array_filter($variables, function ($value) {
+            return $value !== null && $value !== '';
+        });
 
         foreach($this->variables as $var => &$value) {
             if (strpos($var, 'breakpoints-') === 0) {
